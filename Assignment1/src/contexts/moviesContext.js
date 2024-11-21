@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 
+// Declare the context
 export const MoviesContext = React.createContext(null);
 
+// Define the MoviesContextProvider component
 const MoviesContextProvider = (props) => {
-  const [favorites, setFavorites] = useState( [] )
+  const [favorites, setFavorites] = useState([]);
+  const [myReviews, setMyReviews] = useState({});
 
+  // Function to add a movie to favorites
   const addToFavorites = (movie) => {
     let newFavorites = [];
-    if (!favorites.includes(movie.id)){
+    if (!favorites.includes(movie.id)) {
       newFavorites = [...favorites, movie.id];
-    }
-    else{
+    } else {
       newFavorites = [...favorites];
     }
-    setFavorites(newFavorites)
+    setFavorites(newFavorites);
   };
-  const [myReviews, setMyReviews] = useState( {} ) 
 
-  
-  // We will use this function in the next step
+  // Function to remove a movie from favorites
   const removeFromFavorites = (movie) => {
-    setFavorites( favorites.filter(
-      (mId) => mId !== movie.id
-    ) )
+    setFavorites(favorites.filter((mId) => mId !== movie.id));
   };
+
+  // Function to add a review for a movie
   const addReview = (movie, review) => {
-    setMyReviews( {...myReviews, [movie.id]: review } )
+    setMyReviews({ ...myReviews, [movie.id]: review });
   };
-  //console.log(myReviews);
 
   return (
     <MoviesContext.Provider
@@ -43,4 +43,5 @@ const MoviesContextProvider = (props) => {
   );
 };
 
+// Export the provider as the default export
 export default MoviesContextProvider;

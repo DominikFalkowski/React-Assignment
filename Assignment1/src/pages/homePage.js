@@ -28,8 +28,11 @@ const HomePage = (props) => {
       title="Discover Movies"
       movies={movies}
       action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
+        return (
+          <button onClick={() => addToFavorites(movie.id)}>
+            Add to Favorites
+          </button>
+        );      }}
     />
 );
 };
