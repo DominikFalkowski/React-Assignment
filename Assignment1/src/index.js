@@ -9,6 +9,8 @@ import SiteHeader from './components/siteHeader'
 import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 
 
 const queryClient = new QueryClient({
