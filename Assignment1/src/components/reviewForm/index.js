@@ -1,38 +1,21 @@
+import React, { useState, useContext } from "react";
+import { MoviesContext } from "../../contexts/moviesContext";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { useForm, Controller } from "react-hook-form";
-import React, { useState, useContext} from "react";
-import { MoviesContext } from "../../contexts/moviesContext";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 
-
-
 const ratings = [
-  {
-    value: 5,
-    label: "Excellent",
-  },
-  {
-    value: 4,
-    label: "Good",
-  },
-  {
-    value: 3,
-    label: "Average",
-  },
-  {
-    value: 2,
-    label: "Poor",
-  },
-  {
-    value: 0,
-    label: "Terrible",
-  },
+  { value: 5, label: "Excellent" },
+  { value: 4, label: "Good" },
+  { value: 3, label: "Average" },
+  { value: 2, label: "Poor" },
+  { value: 0, label: "Terrible" },
 ];
 
 const styles = {
@@ -61,29 +44,31 @@ const styles = {
     },
   },
 };
-  const ReviewForm = ({ movie }) => {
-    const context = useContext(MoviesContext); 
-    const [open, setOpen] = useState(false);  
-    const navigate = useNavigate();
-    const handleSnackClose = (event) => {
-      setOpen(false);
-      navigate("/movies/favorites");
-    };          
-    const [rating, setRating] = useState(3);
-  
+
+const ReviewForm = ({ movie }) => {
+  const context = useContext(MoviesContext);
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(3);
+  const navigate = useNavigate();
+
   const defaultValues = {
     author: "",
     review: "",
     agree: false,
     rating: "3",
   };
-  
+
   const {
     control,
     formState: { errors },
     handleSubmit,
     reset,
-  } = useForm(defaultValues);
+  } = useForm({ defaultValues });
+
+  const handleSnackClose = () => {
+    setOpen(false);
+    navigate("/movies/favorites");
+  };
 
   const handleRatingChange = (event) => {
     setRating(event.target.value);
@@ -92,11 +77,17 @@ const styles = {
   const onSubmit = (review) => {
     review.movieId = movie.id;
     review.rating = rating;
-    // console.log(review);
     context.addReview(movie, review);
-    setOpen(true); // NEW
+    setOpen(true);
   };
-  <Snackbar
+
+  return (
+    <Box component="div" sx={styles.root}>
+      <Typography component="h2" variant="h3">
+        Write a review
+      </Typography>
+
+      <Snackbar
         sx={styles.snack}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={open}
@@ -113,13 +104,6 @@ const styles = {
         </MuiAlert>
       </Snackbar>
 
-
-  return (
-    <Box component="div" sx={styles.root}>
-      <Typography component="h2" variant="h3">
-        Write a review
-      </Typography>
-
       <form sx={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
         <Controller
           name="author"
@@ -128,7 +112,7 @@ const styles = {
           defaultValue=""
           render={({ field: { onChange, value } }) => (
             <TextField
-              sx={{ width: "40ch" }}
+              sx={styles.textField}
               variant="outlined"
               margin="normal"
               required
@@ -146,6 +130,7 @@ const styles = {
             {errors.author.message}
           </Typography>
         )}
+
         <Controller
           name="review"
           control={control}
@@ -212,12 +197,7 @@ const styles = {
             variant="contained"
             color="secondary"
             sx={styles.submit}
-            onClick={() => {
-              reset({
-                author: "",
-                content: "",
-              });
-            }}
+            onClick={() => reset({ author: "", review: "" })}
           >
             Reset
           </Button>

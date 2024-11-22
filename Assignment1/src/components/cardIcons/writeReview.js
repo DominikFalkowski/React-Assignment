@@ -14,5 +14,4 @@ const WriteReviewIcon = ({ movie }) => {
     </Link>
   );
 };
-
 export default WriteReviewIcon;

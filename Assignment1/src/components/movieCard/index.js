@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext  } from "react";
+import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
@@ -14,9 +15,6 @@ import Grid from "@mui/material/Grid2";
 import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
 import Avatar from '@mui/material/Avatar';
-import React, { useContext  } from "react";
-import { MoviesContext } from "../../contexts/moviesContext";
-
 
 
 export default function MovieCard({ movie, action }) {
@@ -34,7 +32,7 @@ export default function MovieCard({ movie, action }) {
   };
   return (
     <Card>
-   <CardHeader
+       <CardHeader
         avatar={
           movie.favorite ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
@@ -48,7 +46,7 @@ export default function MovieCard({ movie, action }) {
           </Typography>
         }
       />
-    <CardMedia
+      <CardMedia
         sx={{ height: 500 }}
         image={
           movie.poster_path
