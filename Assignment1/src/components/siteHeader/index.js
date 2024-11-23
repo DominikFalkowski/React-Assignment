@@ -15,21 +15,18 @@ import { useTheme } from "../../contexts/themeContext";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = ({ toggleDarkMode }) => {
-  console.log("toggleDarkMode exists:", toggleDarkMode);
+const SiteHeader = () => {
+  const { darkMode, toggleDarkMode } = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const { darkMode, toggleDarkMode } = useTheme();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width:768px)");
 
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "Watchlist", path: "/movies/watchlist" }, // Added Watchlist
-    { label: "Upcoming", path: "/movies/upcoming" }, // Added Upcoming
+    { label: "Watchlist", path: "/movies/watchlist" },
+    { label: "Upcoming", path: "/movies/upcoming" },
   ];
 
   const handleMenuSelect = (pageURL) => {
@@ -50,7 +47,11 @@ const SiteHeader = ({ toggleDarkMode }) => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
-          <Switch onChange={toggleDarkMode} color="default" /> {/* Dark Mode Toggle */}
+          <Switch
+            checked={darkMode}
+            onChange={toggleDarkMode}
+            color="default"
+          />
           {isMobile ? (
             <>
               <IconButton

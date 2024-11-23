@@ -10,9 +10,7 @@ import { QueryClientProvider, QueryClient } from "react-query";
 import { ReactQueryDevtools } from 'react-query/devtools';
 import MoviesContextProvider from "./contexts/moviesContext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { ThemeProvider } from "@emotion/react";
-
-
+import { DarkModeProvider } from "./contexts/themeContext";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -27,7 +25,6 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider>
       <BrowserRouter>
         <SiteHeader />
         <MoviesContextProvider>
@@ -41,11 +38,14 @@ const App = () => {
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
-      </ThemeProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 };
 
-const rootElement = createRoot( document.getElementById("root") )
-rootElement.render(<App />);
+const rootElement = createRoot(document.getElementById("root"));
+rootElement.render(
+  <DarkModeProvider>
+    <App />
+  </DarkModeProvider>
+);
