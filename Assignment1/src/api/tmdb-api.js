@@ -70,14 +70,6 @@ export const getMovieImages = ({ queryKey }) => {
     throw error
  });
 };
-
-export const getUpcomingMovies = () => {
-  return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}`
-  )
-    .then((res) => res.json())
-    .then((data) => data.results);
-};
   
 export const getMovieReviews = ({ queryKey }) => {
   const [, idPart] = queryKey;

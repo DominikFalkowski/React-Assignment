@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext  } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,24 +12,30 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
 import Grid from "@mui/material/Grid2";
-import img from "../../images/film-poster-placeholder.png";
+import img from '../../images/film-poster-placeholder.png'
 import { Link } from "react-router-dom";
-import Avatar from "@mui/material/Avatar";
+import Avatar from '@mui/material/Avatar';
+
 
 export default function MovieCard({ movie, action }) {
-  const { favorites, watchlist, addToFavorites, removeFromFavorites, addToWatchlist, removeFromWatchlist } =
-    useContext(MoviesContext);
+  const { favorites, addToFavorites } = useContext(MoviesContext);
 
-  // Check if the movie is in favorites or watchlist
-  const isFavorite = favorites.includes(movie.id);
-  const isInWatchlist = watchlist.includes(movie.id);
+  if (favorites.find((id) => id === movie.id)) {
+    movie.favorite = true;
+  } else {
+    movie.favorite = false
+  }
 
+  const handleAddToFavorite = (e) => {
+    e.preventDefault();
+    addToFavorites(movie);
+  };
   return (
     <Card>
-      <CardHeader
+       <CardHeader
         avatar={
-          isFavorite ? (
-            <Avatar sx={{ backgroundColor: "red" }}>
+          movie.favorite ? (
+            <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
           ) : null
@@ -50,13 +56,13 @@ export default function MovieCard({ movie, action }) {
       />
       <CardContent>
         <Grid container>
-          <Grid xs={6}>
+          <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid xs={6}>
+          <Grid size={{xs: 6}}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
@@ -65,49 +71,15 @@ export default function MovieCard({ movie, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {/* Favorite Button */}
-        {isFavorite ? (
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={() => removeFromFavorites(movie)}
-          >
-            Remove Favorite
-          </Button>
-        ) : (
-          <Button
-            variant="outlined"
-            color="secondary"
-            onClick={() => addToFavorites(movie)}
-          >
-            Add to Favorites
-          </Button>
-        )}
-
-        {/* Watchlist Button */}
-        {isInWatchlist ? (
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => removeFromWatchlist(movie)}
-          >
-            Remove Watchlist
-          </Button>
-        ) : (
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={() => addToWatchlist(movie)}
-          >
-            Add to Watchlist
-          </Button>
-        )}
-
+      
+        {action(movie)}
+      
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
         </Link>
+        
       </CardActions>
     </Card>
   );

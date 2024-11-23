@@ -9,16 +9,17 @@ import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Switch from "@mui/material/Switch";
+import { useTheme } from "../../contexts/themeContext";
 
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = ({ toggleDarkMode }) => {
+  console.log("toggleDarkMode exists:", toggleDarkMode);
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  const { darkMode, toggleDarkMode } = useTheme();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
