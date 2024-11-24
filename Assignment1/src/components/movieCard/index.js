@@ -14,6 +14,8 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import { Link } from "react-router-dom";
 import { MoviesContext } from "../../contexts/moviesContext";
 import img from '../../images/film-poster-placeholder.png';
+import AddToWatchlistIcon from "../cardIcons/addToWatchlist";
+import RemoveFromWatchlistIcon from "../cardIcons/removeFromWatchlist";
 
 const MovieCard = ({ movie, action }) => {
   const { favorites, watchlist } = useContext(MoviesContext);
@@ -63,6 +65,12 @@ const MovieCard = ({ movie, action }) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
+        {/* Add or Remove from Watchlist Icon */}
+        {isInWatchlist ? (
+          <RemoveFromWatchlistIcon movie={movie} />
+        ) : (
+          <AddToWatchlistIcon movie={movie} />
+        )}
         {action && action(movie)}
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
