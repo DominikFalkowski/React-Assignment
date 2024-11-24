@@ -4,6 +4,7 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from 'react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 
 const HomePage = (props) => {
@@ -30,6 +31,7 @@ const HomePage = (props) => {
       movies={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
+        return <AddToWatchlistIcon movie={movie} />
       }}
     />
 );

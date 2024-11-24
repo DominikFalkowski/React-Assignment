@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, createContext, useContext } from "react";
 
-export const MoviesContext = React.createContext(null);
+export const MoviesContext = createContext(null);
 
-const MoviesContextProvider = (props) => {
+export const MoviesContextProvider = (props) => {
   const [favorites, setFavorites] = useState([]);
   const [watchlist, setWatchlist] = useState([]); // New watchlist state
   const [myReviews, setMyReviews] = useState({});
@@ -34,7 +34,7 @@ const MoviesContextProvider = (props) => {
     setMyReviews({ ...myReviews, [movie.id]: review });
   };
 
-  // Utility method
+  // Utility methods
   const isFavorite = (movieId) => favorites.includes(movieId);
   const isInWatchlist = (movieId) => watchlist.includes(movieId);
 
@@ -57,5 +57,7 @@ const MoviesContextProvider = (props) => {
     </MoviesContext.Provider>
   );
 };
+
+export const useMovies = () => useContext(MoviesContext);
 
 export default MoviesContextProvider;
