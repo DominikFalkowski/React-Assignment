@@ -63,32 +63,57 @@ export default function FilterMoviesCard(props) {
           Filter the movies.
         </Typography>
         <TextField
-      sx={{...formControl}}
-      id="filled-search"
-      label="Search field"
-      type="search"
-      variant="filled"
-      value={props.titleFilter}
-      onChange={handleTextChange}
-    />
-        <FormControl sx={{...formControl}}>
-          <InputLabel id="genre-label">Genre</InputLabel>
-          <Select
+  sx={{
+    ...formControl,
+    "& .MuiFilledInput-root": {
+      backgroundColor: "white", 
+      color: "black",         
+    },
+    "& .MuiInputLabel-root": {
+      color: "black",          
+    },
+    "& .MuiFilledInput-underline:before": {
+      borderBottomColor: "black", 
+    },
+  }}
+  id="filled-search"
+  label="Search field"
+  type="search"
+  variant="filled"
+  value={props.titleFilter}
+  onChange={handleTextChange}
+/>
+<FormControl
+  sx={{
+    ...formControl,
+    "& .MuiSelect-filled": {
+      backgroundColor: "white", 
+      color: "black",          
+    },
+    "& .MuiInputLabel-root": {
+      color: "black",          
+    },
+    "& .MuiFilledInput-underline:before": {
+      borderBottomColor: "black", 
+    },
+  }}
+>
+  <InputLabel id="genre-label">Genre</InputLabel>
+  <Select
     labelId="genre-label"
     id="genre-select"
-    defaultValue=""
     value={props.genreFilter}
     onChange={handleGenreChange}
   >
-            {genres.map((genre) => {
-              return (
-                <MenuItem key={genre.id} value={genre.id}>
-                  {genre.name}
-                </MenuItem>
-              );
-            })}
-          </Select>
-        </FormControl>
+    {genres.map((genre) => {
+      return (
+        <MenuItem key={genre.id} value={genre.id}>
+          {genre.name}
+        </MenuItem>
+      );
+    })}
+  </Select>
+</FormControl>
       </CardContent>
       <CardMedia
         sx={{ height: 300 }}
