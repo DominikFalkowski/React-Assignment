@@ -12,6 +12,10 @@ import MoviesContextProvider from "./contexts/moviesContext";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { DarkModeProvider } from "./contexts/themeContext";
 import WatchlistPage from "./pages/watchlistPage";
+import TrendingMoviesPage from "./pages/trendingMoviesPage";
+import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
+
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +41,8 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="*" element={ <Navigate to="/" /> } />
             <Route path="/movies/watchlist" element={<WatchlistPage />} />
+            <Route path="movies/trending" element={<TrendingMoviesPage />} />
+            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>

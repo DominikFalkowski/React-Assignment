@@ -20,7 +20,6 @@ import RemoveFromWatchlistIcon from "../cardIcons/removeFromWatchlist";
 const MovieCard = ({ movie, action }) => {
   const { favorites, watchlist } = useContext(MoviesContext);
 
-  // Check if movie is in favorites
   const isFavorite = favorites.includes(movie.id);
   const isInWatchlist = watchlist.includes(movie.id);
 
@@ -29,7 +28,7 @@ const MovieCard = ({ movie, action }) => {
     <Card>
       <CardHeader
         avatar={
-          isFavorite && ( // Only show the heart icon if the movie is a favorite
+          isFavorite && ( 
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
@@ -65,7 +64,7 @@ const MovieCard = ({ movie, action }) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {/* Add or Remove from Watchlist Icon */}
+        {}
         {isInWatchlist ? (
           <RemoveFromWatchlistIcon movie={movie} />
         ) : (

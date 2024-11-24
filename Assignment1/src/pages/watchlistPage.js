@@ -5,12 +5,11 @@ import { useQueries } from "react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner';
 import WriteReview from "../components/cardIcons/writeReview";
-import RemoveFromWatchlist from "../components/cardIcons/removeFromWatchlist"; // Ensure this is the correct import path
+import RemoveFromWatchlist from "../components/cardIcons/removeFromWatchlist";
 
 const WatchlistMoviesPage = () => {
   const { watchlist: movieIds } = useContext(MoviesContext);
 
-  // Create an array of queries and run in parallel.
   const watchlistQueries = useQueries(
     movieIds.map((movieId) => {
       return {
@@ -49,4 +48,4 @@ const WatchlistMoviesPage = () => {
   );
 };
 
-export default WatchlistMoviesPage; // Corrected component name for clarity
+export default WatchlistMoviesPage;
