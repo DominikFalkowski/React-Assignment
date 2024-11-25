@@ -93,7 +93,8 @@ export const getUpcomingMovies = () => {
 };
 export const searchActor = (actorName) => {
   return fetch(
-    `https://api.themoviedb.org/3/search/person?query=${actorName}&api_key=${process.env.REACT_APP_TMDB_KEY}`
+    "https://api.themoviedb.org/3/search/person?query=${actorName}&api_key="+
+    process.env.REACT_APP_TMDB_KEY
   )
     .then((response) => {
       if (!response.ok) {
@@ -111,7 +112,8 @@ export const searchActor = (actorName) => {
 
 export const getMoviesByActor = (actorId) => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?with_cast=${actorId}&api_key=${process.env.REACT_APP_TMDB_KEY}`
+    "https://api.themoviedb.org/3/discover/movie?with_cast=${actorId}&api_key="+
+    process.env.REACT_APP_TMDB_KEY
   )
     .then((response) => {
       if (!response.ok) {
