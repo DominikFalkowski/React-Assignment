@@ -16,12 +16,15 @@ import { MoviesContext } from "../../contexts/moviesContext";
 import img from '../../images/film-poster-placeholder.png';
 import AddToWatchlistIcon from "../cardIcons/addToWatchlist";
 import RemoveFromWatchlistIcon from "../cardIcons/removeFromWatchlist";
+import AddToFavoritesIcon from "../cardIcons/addToFavorites";
 
-const MovieCard = ({ movie, action }) => {
+const MovieCard = ({ movie }) => {
+  console.log("MovieCard Rendered: ", movie);
   const { favorites, watchlist } = useContext(MoviesContext);
-
   const isFavorite = favorites.includes(movie.id);
   const isInWatchlist = watchlist.includes(movie.id);
+
+  console.log("MovieCard Rendered: ", movie);
 
 
   return (
@@ -64,13 +67,14 @@ const MovieCard = ({ movie, action }) => {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        {}
+        {/* Add or Remove from Watchlist Icon */}
         {isInWatchlist ? (
           <RemoveFromWatchlistIcon movie={movie} />
         ) : (
           <AddToWatchlistIcon movie={movie} />
         )}
-        {action && action(movie)}
+        {/* Add to Favorites Icon */}
+        <AddToFavoritesIcon movie={movie} />
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info

@@ -7,6 +7,8 @@ import Grid from "@mui/material/Grid2";
 function MovieListPageTemplate({ movies, title, action }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [actorFilter, setActorFilter] = useState("");
+
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -15,11 +17,17 @@ function MovieListPageTemplate({ movies, title, action }) {
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    })
+    .filter((m) => {
+      return actorFilter
+        ? m.actors && m.actors.some((actor) => actor.name.toLowerCase().includes(actorFilter.toLowerCase()))
+        : true;
     });
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
+    else if (type === "genre") setGenreFilter(value);
+    else if (type === "actor") setActorFilter(value);
   };
 
   return (
@@ -27,16 +35,17 @@ function MovieListPageTemplate({ movies, title, action }) {
       <Grid size={12}>
         <Header title={title} />
       </Grid>
-      <Grid container sx={{flex: "1 1 500px"}}>
-        <Grid 
-          key="find" 
-          size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} 
-          sx={{padding: "20px"}}
+      <Grid container sx={{ flex: "1 1 500px" }}>
+        <Grid
+          key="find"
+          size={{ xs: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
+          sx={{ padding: "20px" }}
         >
           <FilterCard
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            actorFilter={actorFilter} // Pass the actor filter to FilterCard
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
@@ -44,4 +53,5 @@ function MovieListPageTemplate({ movies, title, action }) {
     </Grid>
   );
 }
+
 export default MovieListPageTemplate;

@@ -25,10 +25,14 @@ const WatchlistMoviesPage = () => {
     return <Spinner />;
   }
 
-  const movies = watchlistQueries.map((q) => {
-    q.data.genre_ids = q.data.genres.map((g) => g.id);
-    return q.data;
-  });
+  const movies = watchlistQueries
+  .map((query) => {
+    if (query.isError || !query.data || !query.data.id) return null;
+    const movie = query.data;
+    movie.genre_ids = movie.genres ? movie.genres.map((g) => g.id) : [];
+    return movie;
+  })
+  .filter((movie) => movie !== null);
 
   const toDo = () => true;
 
